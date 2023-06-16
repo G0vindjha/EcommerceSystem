@@ -72,6 +72,15 @@ $results_per_page = 5;
   //fetch all the data
   $result = $conn->select("Customers", ('customer_id,name,gender,email,address,`phone_number`,image'),null,null, null, null, null, "customer_Id", "ASC", $results_per_page, $page_first_result);
 $title = "Customer List";
+$breadcrump = '<div class="pagetitle mt-4">
+<h1>Customers</h1>
+<nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="'.SITE_URL.'PHPOPS/eCommerce/admin/dashboard.php">Home</a></li>
+    <li class="breadcrumb-item active">Customer List</li>
+  </ol>
+</nav>
+</div>';
 require_once '../lib/siteConstant.php';
 require_once '../lib/header.php';
 require_once '../lib/navbar_admin.php';

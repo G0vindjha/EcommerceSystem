@@ -37,6 +37,7 @@ if (isset($_POST['submit'])) {
                         "address" => $street_Address,
                         "phone_number" => $phone_Number,
                     );
+                  
                     $dataForValidate=array(
                         "email" => $email,
                         "valid" => '0'
@@ -44,6 +45,13 @@ if (isset($_POST['submit'])) {
                     $conn = new Connection();
                     $conn->insert("validate",$dataForValidate);
                     $result = $conn->insert('Customers', $dataArr);
+                    $dataArr = array(
+                        "customer_id"=>$result,
+                        "name" => $name,
+                        "email" =>  $email,
+                        "address" => $street_Address,
+                    );
+                    $AddressAdd = $conn->insert('Customer_Address', $dataArr);
                     if ($result == 'error') {
                         echo " File Not uploaded!!";
                     } else {

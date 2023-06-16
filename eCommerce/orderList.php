@@ -28,10 +28,10 @@ $number_of_result = count($result1);
 $number_of_page = ceil($number_of_result / $results_per_page);
 
 //determine which page number visitor is currently on  
-if (!isset($_GET['page']) || $_GET['page'] <= 0) {
+if (!isset($_GET['page']) || (int)(base64_decode($_GET['page'])) <= 0) {
     $page = 1;
 } else {
-    $page = $_GET['page'];
+    $page = (int)(base64_decode($_GET['page']));
 }
 $page_first_result = ($page - 1) * $results_per_page;
 //fetch all the order data
@@ -80,37 +80,37 @@ foreach ($result as $value) {
 </div>';
 }
 //conditions for pagination
-if($_GET['page'] > 1){
-    $prevPage = $_GET['page']-1;
+if((int)(base64_decode($_GET['page'])) > 1){
+    $prevPage = (int)(base64_decode($_GET['page']))-1;
 }
 else{
     $prevPage = 1; 
 }
-if($_GET['page'] >= $number_of_page){
-    $nextPage = $_GET['page'];
+if((int)(base64_decode($_GET['page'])) >= $number_of_page){
+    $nextPage = (int)(base64_decode($_GET['page']));
 }
 else{
-    $nextPage = $_GET['page']+1;
+    $nextPage = (int)(base64_decode($_GET['page']))+1;
 }
 //pagination start
 $pagination = '<nav aria-label="Page navigation example" class="d-flex justify-content-center">
     <ul class="pagination">
-      <li class="page-item"><a class="page-link" href="orderList.php?page=' . $prevPage . '">Previous</a></li>'; 
+      <li class="page-item"><a class="page-link" href="orderList.php?page=' . base64_encode($prevPage) . '">Previous</a></li>'; 
 for ($page = 1; $page <= $number_of_page; $page++) {
     //active link
-    if($_GET['page'] == $page){
+    if((int)(base64_decode($_GET['page'])) == $page){
         $pagination .='
-        <li class="page-item"><a class="page-link active" href = "orderList.php?page=' . $page . '">' . $page . '</a></li>
+        <li class="page-item"><a class="page-link active" href = "orderList.php?page=' . base64_encode($page) . '">' . $page . '</a></li>
         ';
     }
     else{
         $pagination .='
-        <li class="page-item"><a class="page-link" href = "orderList.php?page=' . $page . '">' . $page . '</a></li>
+        <li class="page-item"><a class="page-link" href = "orderList.php?page=' . base64_encode($page) . '">' . $page . '</a></li>
         ';
     }
      
 }
-$pagination .= '<li class="page-item"><a class="page-link" href="orderList.php?page=' . $nextPage . '">Next</a></li>
+$pagination .= '<li class="page-item"><a class="page-link" href="orderList.php?page=' . base64_encode($nextPage) . '">Next</a></li>
 </ul>
 </nav>';
 //pagination ends
@@ -122,7 +122,7 @@ $pagination .= '<li class="page-item"><a class="page-link" href="orderList.php?p
                 <!-- Product list card -->
                 <div class="card" style="border-radius: 10px;border:2px solid #118383;">
                     <div class="card-header px-4 py-5 " style="background-color: #118383;">
-                        <h5 class="text-light mb-0">Thanks for your Order, <?php echo $_SESSION['userName'] ?> !!!</h5>
+                        <h5 class="text-light mb-0">Thanks for your Order,<?php echo '<a class="text-light" href="'.SITE_URL.'PHPOPS/eCommerce/customer_profile.php">'.$_SESSION['userName'].'</a>' ?> !!!</h5>
                     </div>
                     <div class="card shadow-0 border mb-4 d-none d-md-block">
                         <div class="card-body">

@@ -8,6 +8,15 @@ if (!isset($_SESSION['username'])) {
     exit;
 }
 $title = "Order List";
+$breadcrump = '<div class="pagetitle mt-4">
+<h1>Orders</h1>
+<nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+    <li class="breadcrumb-item active">Order List</li>
+  </ol>
+</nav>
+</div>';
 require_once '../lib/Connection.php';
 require_once '../lib/siteConstant.php';
 require_once '../lib/header.php';

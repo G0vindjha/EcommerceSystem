@@ -206,7 +206,7 @@ a:hover {
 
 .accordion-button::after {
   width: 0;
-  
+
 }
 
 /* Sidebar Css ends */
@@ -215,10 +215,15 @@ a:hover {
 .productCard img {
   opacity: 100%;
   transform: scale(.9);
+  -webkit-transition: -webkit-transform 0.5s ease;
+  -moz-transition: -moz-transform 0.5s ease;
+  transition: transform 0.5s ease;
 }
 
 .productCard:hover img {
-  opacity: 100%;
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -o-transform: scale(1);
   transform: scale(1);
 }
 
@@ -282,14 +287,15 @@ div:where(.swal2-container1) {
 }
 
 @media only screen and (max-width: 1440px) {
-  .w-25{
+  .w-25 {
     width: 100% !important;
   }
 }
 
 
 /* Pagination starts */
-.active>.page-link, .page-link.active {
+.active>.page-link,
+.page-link.active {
   z-index: 3;
   color: white;
   background-color: #118383 !important;
@@ -301,16 +307,18 @@ div:where(.swal2-container1) {
   display: block;
   padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
   font-size: var(--bs-pagination-font-size);
-  color: #118383 ;
+  color: #118383;
   text-decoration: none;
   background-color: var(--bs-pagination-bg);
   border: var(--bs-pagination-border-width) solid var(--bs-pagination-border-color);
-  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
-.page-link:hover{
+
+.page-link:hover {
   z-index: 3;
   color: white;
   background-color: #118383;
   border-color: #118383;
 }
+
 /* Pagination end */

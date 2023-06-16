@@ -116,8 +116,9 @@ if (!isset($_SESSION['customer_id'])) {
                 //delete from cart table
                 $conn->delete("Cart", "customer_id = :customer_id", $datadelete, "no");
                 //update the product table
-                $result = $conn->select("Products", "quantity", null, null, "product_id=:product_id", $dataSelectQuantity);
+                $result = $conn->select("Products", "*", null, null, "product_id=:product_id", $dataSelectQuantity);
                 $updatedQuantity = $result[0]['quantity'] - $quantity[$i];
+                $category = $result[0]['category_id'];
                 $dataArr = array(
                     "quantity" => $updatedQuantity,
                     "product_id" => $product_id[$i]
@@ -125,7 +126,7 @@ if (!isset($_SESSION['customer_id'])) {
                 $result = $conn->update('Products', $dataArr, 'product_id = :product_id');
             }
             echo "<script>
-            window.location.href = '" . SITE_URL . "PHPOPS/eCommerce/orderStatus.php?status=success';
+            window.location.href = '" . SITE_URL . "PHPOPS/eCommerce/orderStatus.php?status=" . base64_encode('success') . "&category=" . base64_encode($category) . "';
             </script>";
         }
     }
@@ -138,8 +139,26 @@ if (!isset($_SESSION['customer_id'])) {
                 <div class="m-4">
                     <h4 class="card-title mb-4">Your shopping cart</h4>
                     <?php echo $output;
-                    echo $orderPlaceOutput; ?>
+                    echo $orderPlaceOutput;
+                    ?>
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#addAddressModal" style="background-color: #118383; color:white;">
+                                Add Address
+                            </button>
 
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -173,6 +192,30 @@ if (!isset($_SESSION['customer_id'])) {
                         <a href="<?php echo SITE_URL; ?>PHPOPS/eCommerce/index.php" class="btn btn-outline-secondary w-100 border mt-2"> Back to shop </a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="addAddressModal" tabindex="-1" aria-labelledby="addAddressModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addAddressModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="street_Address" class="form-label">Street Address : </label>
+                    <textarea class="form-control" id="street_Address" placeholder="Enter Address..." name="street_Address" required><?php echo $updateResult['address'] ?></textarea>
+                    <div id="validaddress" class="invalid-feedback">
+                        Enter Address
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="" class="addAddress btn btn-success">Add</button>
             </div>
         </div>
     </div>

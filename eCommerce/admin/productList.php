@@ -71,6 +71,15 @@ if ($_POST['action'] == 'searchData') {
   //fetch all the data
 $result = $conn->select("Products", ('product_id,Products.name,summary,Products.description,price,`quantity`,image,Categories.name as CategoryName'), 'LEFT JOIN', array('Categories' => array("category_id" => "category_id")), null, null, null, "product_Id", "ASC", $results_per_page, $page_first_result);
 $title = "Product List";
+$breadcrump = '<div class="pagetitle mt-4">
+<h1>Products</h1>
+<nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="'.SITE_URL.'PHPOPS/eCommerce/admin/dashboard.php">Home</a></li>
+    <li class="breadcrumb-item active">Product List</li>
+  </ol>
+</nav>
+</div>';
 require_once '../lib/siteConstant.php';
 require_once '../lib/header.php';
 require_once '../lib/navbar_admin.php';

@@ -75,7 +75,7 @@
                     $result = $conn->select("Categories");
                     foreach ($result as $value) {
                        echo '<li class="nav-item">
-                       <a class="nav-link" href="'.SITE_URL.'PHPOPS/eCommerce/index.php?category_id='.$value["category_id"].'">'.$value["name"].'</a>
+                       <a class="nav-link" href="'.SITE_URL.'PHPOPS/eCommerce/index.php?category_id='.base64_encode($value["category_id"]).'">'.$value["name"].'</a>
                    </li>'; 
                     }
                 ?>

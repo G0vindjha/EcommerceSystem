@@ -28,15 +28,7 @@ if ($_POST['action'] == 'adminLogout') {
     </div>
   </div>
   <div class="col-4 d-none d-md-block">
-    <div class="pagetitle mt-4">
-      <h1>Dashboard</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="<?php echo SITE_URL; ?>PHPOPS/eCommerce/admin/dashboard.php">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-        </ol>
-      </nav>
-    </div>
+   <?php echo $breadcrump;?>
   </div>
   <div class="col">
     <img src="<?php echo SITE_URL; ?>PHPOPS/eCommerce/assets/image/Logo.png" alt="..." width="200px">
@@ -50,15 +42,6 @@ if ($_POST['action'] == 'adminLogout') {
             <span class="dropdown-toggle ps-2"><?php echo $_SESSION['username'];?></span>
           </a>
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <!-- <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li> -->
             <li>
               <button type="button" class="dropdown-item d-flex align-items-center adminLogout"><i class="bi bi-box-arrow-right"> </i> Sign Out</button>
             </li>

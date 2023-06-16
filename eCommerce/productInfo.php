@@ -11,7 +11,7 @@ if (!isset($_GET['product_id'])) {
     $conn = new Connection();
     $data = array(
         ":product_id" => array(
-            "value" => $_GET['product_id'],
+            "value" => base64_decode($_GET['product_id']),
             "type" => 'INT'
         ),
     );
@@ -33,21 +33,27 @@ if (!isset($_GET['product_id'])) {
     //Add to cart
     if (isset($_POST['addToCart'])) {
         if(isset($_SESSION['customer_id'])){
-            if($_POST['productQuantity'] <= 0){
-                
-                $errorMsg =  "<small class='text-danger'>Add item in Cart!!</small>";
+            if($result[0]['quantity'] <= 0){
+                $errorMsg =  "<small class='text-danger'>This item is out of stock!!</small>";
             }
             else{
-                $dataArr = array(
-                    "customer_id"=>$_SESSION['customer_id'],
-                    "product_id"=>$result[0]['product_id'],
-                    "quantity"=>(int)($_POST['productQuantity']),
-                    "price"=>$productPrice
-                );
-                $conn = new Connection();
-                $conn->insert("Cart ",$dataArr);
-                header("location:cart.php");
+                if($_POST['productQuantity'] <= 0){
+                
+                    $errorMsg =  "<small class='text-danger'>Add item in Cart!!</small>";
+                }
+                else{
+                    $dataArr = array(
+                        "customer_id"=>$_SESSION['customer_id'],
+                        "product_id"=>$result[0]['product_id'],
+                        "quantity"=>(int)($_POST['productQuantity']),
+                        "price"=>$productPrice
+                    );
+                    $conn = new Connection();
+                    $conn->insert("Cart ",$dataArr);
+                    header("location:cart.php");
+                }
             }
+            
         }
         else{
             $errorMsg =  "<small class='text-danger'>Login first!!</small>";

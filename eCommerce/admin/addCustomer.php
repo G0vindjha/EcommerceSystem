@@ -184,6 +184,13 @@ if (isset($_POST['submit']) && !isset($_GET['customer_id'])) {
                     $conn = new Connection();
                     $conn->insert("validate",$dataForValidate);
                     $result = $conn->insert('Customers', $dataArr);
+                    $dataArr = array(
+                        "customer_id"=>$result,
+                        "name" => $name,
+                        "email" =>  $email,
+                        "address" => $street_Address,
+                    );
+                    $AddressAdd = $conn->insert('Customer_Address', $dataArr);
                     if ($result == 'error') {
                         echo " File Not uploaded!!";
                     } else {
@@ -234,6 +241,15 @@ if (isset($_POST['submit']) && !isset($_GET['customer_id'])) {
         }
     }
 }
+$breadcrump = '<div class="pagetitle mt-4">
+<h1>Customers</h1>
+<nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="'.SITE_URL.'PHPOPS/eCommerce/admin/dashboard.php">Home</a></li>
+    <li class="breadcrumb-item active">Add Customer</li>
+  </ol>
+</nav>
+</div>';
 require_once '../lib/header.php';
 require_once '../lib/navbar_admin.php';
 //give popup message

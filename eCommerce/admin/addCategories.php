@@ -103,6 +103,15 @@ if (isset($_POST['categorySubmit']) && !isset($_GET['category_id'])) {
                           </script>";
     }
 }
+$breadcrump = '<div class="pagetitle mt-4">
+<h1>Categories</h1>
+<nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="'.SITE_URL.'PHPOPS/eCommerce/admin/dashboard.php">Home</a></li>
+    <li class="breadcrumb-item active">Add Category</li>
+  </ol>
+</nav>
+</div>';
 require_once '../lib/siteConstant.php';
 require_once '../lib/header.php';
 require_once '../lib/navbar_admin.php';

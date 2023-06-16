@@ -5,7 +5,7 @@ require_once 'lib/Connection.php';
 if ($_POST['action'] == 'verifyotp' && !isset($_GET['status'])) {
   if ($_SESSION['proto_otp'] == $_POST['value']['otp']) {
     $data = array(
-      "email" => $_GET['email'],
+      "email" => base64_decode($_GET['email']),
       "valid" => '1'
     );
     $conn = new Connection();
@@ -27,7 +27,7 @@ if ($_POST['action'] == 'verifyotp' && isset($_GET['status'])) {
 if($_POST['action'] == 'forgotAdminPassword'){
   if($_GET["status"] == 'user'){
     $data = array(
-      "email" => $_GET['email'],
+      "email" => base64_decode($_GET['email']),
       "password" => $_POST['value']['password']
     );
     $conn = new Connection();
@@ -36,7 +36,7 @@ if($_POST['action'] == 'forgotAdminPassword'){
   }
   else{
     $data = array(
-      "email" => $_GET['email'],
+      "email" => base64_decode($_GET['email']),
       "password" => $_POST['value']['password']
     );
     $conn = new Connection();
@@ -71,8 +71,8 @@ try {
   $mail->SMTPSecure = 'tls'; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
   $mail->Port       = 587; // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
   // Recipients
-  $mail->setFrom('testphp@mailtest.radixweb.net', 'Proto');
-  $mail->addAddress($_GET['email']);     // Add a recipient
+  $mail->setFrom('', 'Proto');
+  $mail->addAddress(base64_decode($_GET['email']));     // Add a recipient
   $otp = rand(1000, 9999);
   $mail->isHTML(true);                                  // Set email format to HTML
   $mail->Subject = 'One time Password for Proto registration';

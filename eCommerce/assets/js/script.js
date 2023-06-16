@@ -213,7 +213,7 @@ $(document).ready(function () {
           window.location.href = 'index.php';
         }
         else if (response == "varify") {
-          window.location.href = 'varification.php?email=' + $("#email").val() + '';
+          window.location.href = 'varification.php?email=' + btoa($("#email").val()) + '';
         }
         else {
           console.log(response)
@@ -239,8 +239,9 @@ $(document).ready(function () {
   });
   //Product search on home page
   $("#homeSearch").keyup(function () {
+    $("#catProduct").html("");
     var searchValue = $("#homeSearch").val();
-    if (searchValue != "") {
+    if (searchValue != null) {
       $.ajax({
         type: "post",
         data: {
@@ -404,4 +405,8 @@ $("#resetPassword").click(function () {
       }
     }
   });
+  //Add Address
+  $(document).on("click","#addAddress",function(){
+    console.log("hello");
+  })
 });

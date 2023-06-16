@@ -25,17 +25,23 @@ require_once 'lib/navbar.php';
 </div>
 <!-- Related product sugession -->
 <header class="my-4 ">
-        <h3 class="text-center">::: Related Products :::</h3>
+        <h3 class="text-center">::: Suggested Products :::</h3>
     </header>
 <div class="row" id="productList">
         <?php
+         $category_id = array(
+            ":category_id" => array(
+                "value" => base64_decode($_GET['category']),
+                "type" => 'INT'
+            ),
+        );
         $conn = new Connection();
-        $result = $conn->select("Products","*",null,null,null,null,null,"product_id","DESC",8);
+        $result = $conn->select("Products","*",null,null, "category_id=:category_id", $category_id,null,"product_id","DESC",8);
         foreach ($result as $value) {
             echo '<div class="col-lg-3 col-md-6 col-sm-6 productCard">
 
             <div class="card my-2 shadow-0">
-                <a href="#" class="img-wrap">
+                <a href="'.SITE_URL.'PHPOPS/eCommerce/productInfo.php?product_id='. base64_encode($value["product_id"]) . '" class="img-wrap">
                     <img src="' . SITE_URL . 'PHPOPS/eCommerce/assets/image/productUpload/' . $value["product_id"] . '/' . $value["image"] . '" class="card-img-top" style="aspect-ratio: 1 / 1">
                 </a>
                 <div class="card-body p-3">
@@ -46,7 +52,7 @@ require_once 'lib/navbar.php';
                         ' . substr_replace($value["summary"], "...", 50) . '
                     </p>
                 </div>
-                <a name="" id="" class="btn btn1 btn btn1-primary" href="'.SITE_URL.'PHPOPS/eCommerce/productInfo.php?product_id='. $value["product_id"] . '" role="button">View Product</a>
+                <a name="" id="" class="btn btn1 btn btn1-primary" href="'.SITE_URL.'PHPOPS/eCommerce/productInfo.php?product_id='. base64_encode($value["product_id"]) . '" role="button">View Product</a>
             </div>
         </div>';
         }

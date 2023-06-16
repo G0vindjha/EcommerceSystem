@@ -108,6 +108,8 @@ if ($_POST['action'] == 'customerLogin') {
   //Search products in home page
   if($_POST['action']== "homeSearch"){
     $search = $_POST['value'];
+    if($search != null){
+    echo '<h3 class="text-center">::: '.$_POST['value'].' :::</h3>';
     $conn = new Connection();
     $result = $conn->select('Products', ('product_id,Products.name,summary,Products.description,price,`quantity`,image,Categories.name as CategoryName'), 'LEFT JOIN', array('Categories' => array("category_id" => "category_id")), null, null, null, 'product_Id', 'ASC');   
     $new = array_filter($result, function ($value) use ($search) {
@@ -117,7 +119,7 @@ if ($_POST['action'] == 'customerLogin') {
             $output = '<div class="col-lg-3 col-md-6 col-sm-6 productCard">
 
             <div class="card my-2 shadow-0">
-                <a href="#" class="img-wrap">
+                <a href="'.SITE_URL.'PHPOPS/eCommerce/productInfo.php?product_id='. base64_encode($value["product_id"]) . '" class="img-wrap">
                     <img src="'.SITE_URL.'PHPOPS/eCommerce/assets/image/productUpload/'.$value["product_id"].'/'.$value["image"].'" class="card-img-top" style="aspect-ratio: 1 / 1">
                 </a>
                 <div class="card-body p-3">
@@ -128,12 +130,13 @@ if ($_POST['action'] == 'customerLogin') {
                         '.substr_replace($value["summary"], "...", 50).'
                     </p>
                 </div>
-                <a name="" id="" class="btn btn1 btn btn1-primary" href="'.SITE_URL.'PHPOPS/eCommerce/productInfo.php?product_id='. $value["product_id"] . '" role="button">View Product</a>
+                <a name="" id="" class="btn btn1 btn btn1-primary" href="'.SITE_URL.'PHPOPS/eCommerce/productInfo.php?product_id='. base64_encode($value["product_id"]) . '" role="button">View Product</a>
             </div>
         </div>';
         }
         echo $output;
     });
+}
     exit;
 }
 //check if category is seleted
@@ -141,7 +144,7 @@ if(isset($_GET['category_id'])){
     $conn = new Connection();
     $data = array(
         ":category_id" => array(
-            "value" => $_GET['category_id'],
+            "value" => (int)(base64_decode($_GET['category_id'])),
             "type" => 'INT'
         ),
     );
@@ -151,7 +154,7 @@ if(isset($_GET['category_id'])){
         $output .= '<div class="col-lg-3 col-md-6 col-sm-6 productCard">
 
             <div class="card my-2 shadow-0">
-                <a href="#" class="img-wrap">
+                <a href="'.SITE_URL.'PHPOPS/eCommerce/productInfo.php?product_id='. base64_encode($value["product_id"]) . '" class="img-wrap">
                     <img src="'.SITE_URL.'PHPOPS/eCommerce/assets/image/productUpload/'.$value["product_id"].'/'.$value["image"].'" class="card-img-top" style="aspect-ratio: 1 / 1">
                 </a>
                 <div class="card-body p-3">
@@ -162,7 +165,7 @@ if(isset($_GET['category_id'])){
                         '.substr_replace($value["summary"], "...", 50).'
                     </p>
                 </div>
-                <a name="" id="" class="btn btn1 btn btn1-primary" href="'.SITE_URL.'PHPOPS/eCommerce/productInfo.php?product_id='. $value["product_id"] . '" role="button">View Product</a>
+                <a name="" id="" class="btn btn1 btn btn1-primary" href="'.SITE_URL.'PHPOPS/eCommerce/productInfo.php?product_id='. base64_encode($value["product_id"]) . '" role="button">View Product</a>
             </div>
         </div>';
     }
@@ -280,7 +283,7 @@ require_once 'header.php';
             },
             success: function (response) {
                 if(response == 'success'){
-                    window.location.href = 'varification.php?email='+adminEmail+'&status=user';
+                    window.location.href = 'varification.php?email='+btoa(adminEmail)+'&status=user';
                 }
             }
         });

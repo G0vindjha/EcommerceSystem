@@ -75,6 +75,15 @@ $results_per_page = 5;
   //fetch all the data
 $result = $conn->select("Categories", ('Categories.category_id,Categories.name,Categories.description,SUM(quantity) as quantity'),'LEFT JOIN', array('Products' => array("category_id" => "category_id")), null, null, 'category_id', 'category_id', 'ASC', $results_per_page, $page_first_result);
 $title = "Category List";
+$breadcrump = '<div class="pagetitle mt-4">
+<h1>Categories</h1>
+<nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="'.SITE_URL.'PHPOPS/eCommerce/admin/dashboard.php">Home</a></li>
+    <li class="breadcrumb-item active">Category List</li>
+  </ol>
+</nav>
+</div>';
 require_once '../lib/siteConstant.php';
 require_once '../lib/header.php';
 require_once '../lib/navbar_admin.php';

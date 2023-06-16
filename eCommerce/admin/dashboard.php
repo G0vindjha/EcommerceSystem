@@ -15,6 +15,15 @@ if (!isset($_SESSION['username'])) {
     exit;
 }
 $title = "Admin";
+$breadcrump = '<div class="pagetitle mt-4">
+<h1>Dashboard</h1>
+<nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+    <li class="breadcrumb-item active">Dashboard</li>
+  </ol>
+</nav>
+</div>';
 require_once '../lib/Connection.php';
 require_once '../lib/siteConstant.php';
 require_once '../lib/header.php';
@@ -134,6 +143,7 @@ foreach ($result as $value) {
     </div>
   </div>';
 }
+
 ?>
 <!-- DashBoard -->
 <div class="col-12 col-md-10 m-0 p-0">

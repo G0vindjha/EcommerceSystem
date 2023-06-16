@@ -229,6 +229,15 @@ if (isset($_POST['productSubmit']) && !isset($_GET['product_id'])) {
         }
     }
 }
+$breadcrump = '<div class="pagetitle mt-4">
+<h1>Products</h1>
+<nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="'.SITE_URL.'PHPOPS/eCommerce/admin/dashboard.php">Home</a></li>
+    <li class="breadcrumb-item active">Add Product</li>
+  </ol>
+</nav>
+</div>';
 require_once '../lib/header.php';
 require_once '../lib/navbar_admin.php';
 echo $pop;
